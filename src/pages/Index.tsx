@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header"
 import { HeroSection } from "@/components/HeroSection"
 import { SqlTopicCard } from "@/components/SqlTopicCard"
+import { CoffeeContribution } from "@/components/CoffeeContribution"
 import { sqlTopics } from "@/data/sqlTopics"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -157,6 +158,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Coffee Contribution Section */}
+      <CoffeeContribution />
     </div>
   )
 }
