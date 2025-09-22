@@ -2,7 +2,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Clock, Trophy } from "lucide-react"
-import { useNavigate } from "react-router-dom"
 
 interface SqlTopicCardProps {
   title: string
@@ -12,6 +11,7 @@ interface SqlTopicCardProps {
   estimatedTime: string
   icon: React.ReactNode
   completed?: number
+  onStartLearning?: () => void
 }
 
 export function SqlTopicCard({
@@ -21,9 +21,9 @@ export function SqlTopicCard({
   difficulty,
   estimatedTime,
   icon,
-  completed = 0
+  completed = 0,
+  onStartLearning
 }: SqlTopicCardProps) {
-  const navigate = useNavigate()
   const progress = (completed / problemCount) * 100
 
   const difficultyColors = {
@@ -33,8 +33,9 @@ export function SqlTopicCard({
   }
 
   const handleStartLearning = () => {
-    // Navigate to first problem in this topic
-    navigate('/problem/basic-select-1')
+    if (onStartLearning) {
+      onStartLearning()
+    }
   }
 
   return (

@@ -5,11 +5,18 @@ import { sqlTopics } from "@/data/sqlTopics"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { TrendingUp, Users, Award, BookOpen } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 const Index = () => {
+  const navigate = useNavigate()
   const fundamentalTopics = sqlTopics.filter(topic => topic.category === "fundamentals")
   const intermediateTopics = sqlTopics.filter(topic => topic.category === "intermediate") 
   const advancedTopics = sqlTopics.filter(topic => topic.category === "advanced")
+
+  const handleStartLearning = (topicId: string) => {
+    // Navigate to first problem in this topic - for now using a sample problem
+    navigate('/problem/basic-select-1')
+  }
 
   const stats = [
     {
@@ -93,6 +100,7 @@ const Index = () => {
                   estimatedTime={topic.estimatedTime}
                   icon={<topic.icon className="h-5 w-5 text-primary-foreground" />}
                   completed={topic.completed}
+                  onStartLearning={() => handleStartLearning(topic.id)}
                 />
               ))}
             </div>
@@ -117,6 +125,7 @@ const Index = () => {
                   estimatedTime={topic.estimatedTime}
                   icon={<topic.icon className="h-5 w-5 text-primary-foreground" />}
                   completed={topic.completed}
+                  onStartLearning={() => handleStartLearning(topic.id)}
                 />
               ))}
             </div>
@@ -141,6 +150,7 @@ const Index = () => {
                   estimatedTime={topic.estimatedTime}
                   icon={<topic.icon className="h-5 w-5 text-primary-foreground" />}
                   completed={topic.completed}
+                  onStartLearning={() => handleStartLearning(topic.id)}
                 />
               ))}
             </div>
