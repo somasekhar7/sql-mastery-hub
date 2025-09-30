@@ -6,19 +6,14 @@ export function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-background py-20 lg:py-32">
       <div className="container relative">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left Column - Text Content */}
-          <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
-              <Database className="h-4 w-4 text-primary" />
-              <span className="text-sm font-medium text-foreground">Master SQL with Interactive Learning</span>
-            </div>
-
-            <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-foreground">
+          <div className="space-y-6 lg:space-y-8">
+            <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-foreground">
               SQL Mastery Hub
             </h1>
 
-            <p className="text-xl text-muted-foreground max-w-xl">
+            <p className="text-lg lg:text-xl text-muted-foreground max-w-xl">
               The ultimate resource to prepare for data engineering interviews. 
               Everything you need, in one streamlined platform.
             </p>
@@ -35,7 +30,7 @@ export function HeroSection() {
           </div>
 
           {/* Right Column - Code Editor Visual */}
-          <div className="relative">
+          <div className="relative lg:pl-8">
             <CodeEditorVisual />
           </div>
         </div>

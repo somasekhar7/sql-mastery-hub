@@ -1,6 +1,19 @@
-import { CheckCircle2, XCircle } from "lucide-react"
+import { CheckCircle2, XCircle, Loader2 } from "lucide-react"
+import { useState } from "react"
 
 export function CodeEditorVisual() {
+  const [isRunning, setIsRunning] = useState(false)
+
+  const handleRun = () => {
+    setIsRunning(true)
+    setTimeout(() => setIsRunning(false), 2000)
+  }
+
+  const handleSubmit = () => {
+    setIsRunning(true)
+    setTimeout(() => setIsRunning(false), 2000)
+  }
+
   return (
     <div className="relative w-full max-w-2xl">
       <div className="grid grid-cols-2 gap-4">
@@ -8,7 +21,10 @@ export function CodeEditorVisual() {
         <div className="bg-editor-bg border border-editor-border rounded-lg p-4 space-y-2">
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-semibold text-muted-foreground">Prompt</span>
-            <button className="px-3 py-1 bg-primary text-primary-foreground text-xs font-medium rounded hover:bg-primary-light transition-colors">
+            <button 
+              onClick={handleRun}
+              className="px-3 py-1 bg-primary text-primary-foreground text-xs font-medium rounded hover:bg-primary-light transition-colors"
+            >
               Run
             </button>
           </div>
@@ -82,24 +98,33 @@ export function CodeEditorVisual() {
         <div className="bg-editor-bg border border-editor-border rounded-lg p-4 space-y-2">
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-semibold text-muted-foreground">Output</span>
-            <button className="px-3 py-1 bg-success text-success-foreground text-xs font-medium rounded hover:bg-success-light transition-colors">
+            <button 
+              onClick={handleSubmit}
+              className="px-3 py-1 bg-success text-success-foreground text-xs font-medium rounded hover:bg-success-light transition-colors"
+            >
               Submit
             </button>
           </div>
-          <div className="space-y-2.5">
-            <div className="flex items-center gap-2">
-              <XCircle className="h-4 w-4 text-destructive flex-shrink-0" />
-              <div className="h-2.5 bg-destructive/80 rounded-full flex-1"></div>
+          {isRunning ? (
+            <div className="flex items-center justify-center h-24">
+              <Loader2 className="h-8 w-8 text-primary animate-spin" />
             </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="h-4 w-4 text-success flex-shrink-0" />
-              <div className="h-2.5 bg-success/80 rounded-full flex-1"></div>
+          ) : (
+            <div className="space-y-2.5">
+              <div className="flex items-center gap-2">
+                <XCircle className="h-4 w-4 text-destructive flex-shrink-0" />
+                <div className="h-2.5 bg-destructive/80 rounded-full flex-1"></div>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-success flex-shrink-0" />
+                <div className="h-2.5 bg-success/80 rounded-full flex-1"></div>
+              </div>
+              <div className="flex items-center gap-2">
+                <XCircle className="h-4 w-4 text-destructive flex-shrink-0" />
+                <div className="h-2.5 bg-destructive/80 rounded-full flex-1"></div>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <XCircle className="h-4 w-4 text-destructive flex-shrink-0" />
-              <div className="h-2.5 bg-destructive/80 rounded-full flex-1"></div>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
