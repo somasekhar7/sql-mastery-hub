@@ -6,27 +6,27 @@
 
 @layer base {
   :root {
-    /* Base Colors */
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Base Colors - Dark Navy Theme */
+    --background: 215 45% 12%;
+    --foreground: 210 40% 98%;
 
-    /* Brand Colors - Professional Blue/Purple */
-    --primary: 231 48% 48%;
-    --primary-foreground: 0 0% 98%;
-    --primary-light: 231 48% 58%;
-    --primary-dark: 231 48% 38%;
+    /* Brand Colors - AlgoExpert Blue */
+    --primary: 225 73% 57%;
+    --primary-foreground: 210 40% 98%;
+    --primary-light: 225 73% 67%;
+    --primary-dark: 225 73% 47%;
 
-    /* Secondary - Clean Purple */
-    --secondary: 250 100% 96%;
-    --secondary-foreground: 231 48% 48%;
+    /* Secondary - Navy */
+    --secondary: 215 45% 20%;
+    --secondary-foreground: 210 40% 98%;
 
     /* Success - SQL Green */
-    --success: 142 76% 36%;
+    --success: 142 76% 46%;
     --success-foreground: 0 0% 98%;
-    --success-light: 142 76% 46%;
+    --success-light: 142 76% 56%;
 
     /* Warning - SQL Orange */
-    --warning: 38 92% 50%;
+    --warning: 38 92% 60%;
     --warning-foreground: 0 0% 98%;
 
     /* Error - SQL Red */
@@ -34,54 +34,54 @@
     --destructive-foreground: 0 0% 98%;
 
     /* Neutral Colors */
-    --muted: 220 14.3% 95.9%;
-    --muted-foreground: 220 8.9% 46.1%;
-    --accent: 220 14.3% 95.9%;
-    --accent-foreground: 220.9 39.3% 11%;
+    --muted: 215 35% 25%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 215 45% 20%;
+    --accent-foreground: 210 40% 98%;
 
     /* UI Elements */
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 231 48% 48%;
+    --card: 215 40% 16%;
+    --card-foreground: 210 40% 98%;
+    --popover: 215 40% 16%;
+    --popover-foreground: 210 40% 98%;
+    --border: 215 35% 25%;
+    --input: 215 35% 25%;
+    --ring: 225 73% 57%;
 
     /* Code Editor Colors */
-    --editor-bg: 0 0% 98%;
-    --editor-border: 220 13% 91%;
-    --code-bg: 220 14.3% 95.9%;
+    --editor-bg: 215 40% 18%;
+    --editor-border: 215 35% 28%;
+    --code-bg: 215 45% 14%;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(231 48% 48%), hsl(250 100% 76%));
-    --gradient-success: linear-gradient(135deg, hsl(142 76% 36%), hsl(142 76% 46%));
-    --gradient-hero: linear-gradient(135deg, hsl(231 48% 48%) 0%, hsl(250 100% 76%) 50%, hsl(280 100% 76%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(220 14.3% 99%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(225 73% 57%), hsl(250 100% 76%));
+    --gradient-success: linear-gradient(135deg, hsl(142 76% 46%), hsl(142 76% 56%));
+    --gradient-hero: linear-gradient(135deg, hsl(215 45% 12%) 0%, hsl(215 45% 18%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(215 40% 16%) 0%, hsl(215 35% 20%) 100%);
 
     /* Shadows */
-    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.05);
-    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.06);
-    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.1), 0 4px 6px -2px hsl(0 0% 0% / 0.05);
-    --shadow-glow: 0 0 30px hsl(231 48% 48% / 0.3);
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.2);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.3), 0 2px 4px -1px hsl(0 0% 0% / 0.2);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.4), 0 4px 6px -2px hsl(0 0% 0% / 0.3);
+    --shadow-glow: 0 0 40px hsl(225 73% 57% / 0.4);
 
     --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
+    --sidebar-background: 215 40% 16%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-foreground: 210 40% 98%;
 
-    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary: 225 73% 57%;
 
-    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-primary-foreground: 210 40% 98%;
 
-    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent: 215 45% 20%;
 
-    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-accent-foreground: 210 40% 98%;
 
-    --sidebar-border: 220 13% 91%;
+    --sidebar-border: 215 35% 25%;
 
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 225 73% 57%;
   }
 
   .dark {

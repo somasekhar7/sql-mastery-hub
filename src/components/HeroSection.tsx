@@ -1,68 +1,49 @@
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { PlayCircle, Users, Star, TrendingUp } from "lucide-react"
+import { CodeEditorVisual } from "@/components/CodeEditorVisual"
+import { Database } from "lucide-react"
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-hero py-20 lg:py-28">
+    <section className="relative overflow-hidden bg-background py-20 lg:py-32">
       <div className="container relative">
-        <div className="mx-auto max-w-4xl text-center">
-          <Badge className="mb-6 bg-primary-light/20 text-primary-light border-primary-light/30 hover:bg-primary-light/30">
-            <Star className="h-3 w-3 mr-1" />
-            Master SQL with Interactive Learning
-          </Badge>
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left Column - Text Content */}
+          <div className="space-y-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
+              <Database className="h-4 w-4 text-primary" />
+              <span className="text-sm font-medium text-foreground">Master SQL with Interactive Learning</span>
+            </div>
 
-          <h1 className="mb-6 text-4xl font-bold tracking-tight text-primary-foreground sm:text-6xl lg:text-7xl">
-            Master SQL Through
-            <span className="block bg-gradient-to-r from-white via-white to-primary-light bg-clip-text text-transparent">
-              Practice & Projects
-            </span>
-          </h1>
+            <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-foreground">
+              SQL Mastery Hub
+            </h1>
 
-          <p className="mx-auto mb-8 max-w-2xl text-lg text-primary-foreground/80 sm:text-xl">
-            Learn SQL from basics to advanced with interactive problems, real-world scenarios, 
-            and AI-powered feedback. Join thousands of developers mastering database skills.
-          </p>
+            <p className="text-xl text-muted-foreground max-w-xl">
+              The ultimate resource to prepare for data engineering interviews. 
+              Everything you need, in one streamlined platform.
+            </p>
 
-          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
-            <Button 
-              size="lg" 
-              className="bg-white text-primary hover:bg-white/90 shadow-lg hover:shadow-xl transition-all duration-300 px-8 py-6 text-lg font-semibold"
-            >
-              <PlayCircle className="mr-2 h-5 w-5" />
-              Start Learning
-            </Button>
-            
-            <Button 
-              variant="outline" 
-              size="lg"
-              className="border-white/30 bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm px-8 py-6 text-lg font-semibold"
-            >
-              Browse Problems
-            </Button>
+            <div>
+              <Button 
+                size="lg" 
+                className="bg-primary text-primary-foreground hover:bg-primary-light shadow-lg hover:shadow-glow transition-all duration-300 px-8 py-6 text-lg font-semibold"
+              >
+                <Database className="mr-2 h-5 w-5" />
+                Start Learning SQL
+              </Button>
+            </div>
           </div>
 
-          <div className="mt-12 flex items-center justify-center gap-8 text-primary-foreground/60">
-            <div className="flex items-center gap-2">
-              <Users className="h-5 w-5" />
-              <span className="text-sm font-medium">10,000+ Students</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <TrendingUp className="h-5 w-5" />
-              <span className="text-sm font-medium">500+ Problems</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Star className="h-5 w-5" />
-              <span className="text-sm font-medium">4.9/5 Rating</span>
-            </div>
+          {/* Right Column - Code Editor Visual */}
+          <div className="relative">
+            <CodeEditorVisual />
           </div>
         </div>
       </div>
       
       {/* Background decorations */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-white/10 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-white/10 blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full bg-primary/5 blur-3xl" />
       </div>
     </section>
   )

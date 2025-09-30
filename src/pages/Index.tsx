@@ -51,12 +51,25 @@ const Index = () => {
       <Header />
       <HeroSection />
       
+      {/* What is SQL Mastery Hub Section */}
+      <section className="py-20 bg-card/50">
+        <div className="container">
+          <div className="text-center max-w-3xl mx-auto space-y-6">
+            <h2 className="text-4xl lg:text-5xl font-bold text-foreground">What is SQL Mastery Hub?</h2>
+            <p className="text-xl text-muted-foreground">
+              A comprehensive learning platform designed to help you master SQL through hands-on practice, 
+              real-world scenarios, and interactive challenges.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Stats Section */}
-      <section className="py-16 bg-muted/30">
+      <section className="py-16 bg-background">
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {stats.map((stat, index) => (
-              <Card key={index} className="text-center border-border/50">
+              <Card key={index} className="text-center border-border/50 bg-card">
                 <CardHeader className="pb-3">
                   <div className="mx-auto mb-2">{stat.icon}</div>
                   <CardTitle className="text-2xl font-bold">{stat.value}</CardTitle>
