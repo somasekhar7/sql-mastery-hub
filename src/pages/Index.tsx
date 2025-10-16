@@ -114,6 +114,7 @@ const Index = () => {
                   estimatedTime={topic.estimatedTime}
                   icon={<topic.icon className="h-5 w-5 text-primary-foreground" />}
                   completed={topic.completed}
+                  concepts={topic.concepts}
                   onStartLearning={() => handleStartLearning(topic.id)}
                 />
               ))}
@@ -139,6 +140,7 @@ const Index = () => {
                   estimatedTime={topic.estimatedTime}
                   icon={<topic.icon className="h-5 w-5 text-primary-foreground" />}
                   completed={topic.completed}
+                  concepts={topic.concepts}
                   onStartLearning={() => handleStartLearning(topic.id)}
                 />
               ))}
@@ -164,6 +166,7 @@ const Index = () => {
                   estimatedTime={topic.estimatedTime}
                   icon={<topic.icon className="h-5 w-5 text-primary-foreground" />}
                   completed={topic.completed}
+                  concepts={topic.concepts}
                   onStartLearning={() => handleStartLearning(topic.id)}
                 />
               ))}

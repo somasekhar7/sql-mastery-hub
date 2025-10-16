@@ -11,6 +11,7 @@ interface SqlTopicCardProps {
   estimatedTime: string
   icon: React.ReactNode
   completed?: number
+  concepts: string
   onStartLearning?: () => void
 }
 
@@ -22,6 +23,7 @@ export function SqlTopicCard({
   estimatedTime,
   icon,
   completed = 0,
+  concepts,
   onStartLearning
 }: SqlTopicCardProps) {
   const progress = (completed / problemCount) * 100
@@ -59,6 +61,12 @@ export function SqlTopicCard({
         <p className="text-sm text-muted-foreground leading-relaxed">
           {description}
         </p>
+
+        <div className="bg-muted/50 rounded-md p-2">
+          <p className="text-xs font-medium text-foreground/80">
+            Concepts: <span className="text-primary">{concepts}</span>
+          </p>
+        </div>
 
         <div className="flex items-center justify-between text-sm">
           <div className="flex items-center space-x-1 text-muted-foreground">
