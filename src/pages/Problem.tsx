@@ -229,9 +229,9 @@ const Problem = () => {
 
               {/* Code Editor */}
               <div className="flex-1 flex flex-col">
-                <div className="flex-1">
+                <div className="h-[60%]">
                   <Editor
-                    height="60%"
+                    height="100%"
                     defaultLanguage="sql"
                     theme={theme === "dark" ? "vs-dark" : "vs"}
                     value={code}
@@ -251,7 +251,7 @@ const Problem = () => {
                 <Separator />
 
                 {/* Results Panel */}
-                <div className="h-[40%] bg-editor-bg border-t border-editor-border">
+                <div className="h-[40%] overflow-hidden">
                   <Tabs defaultValue="output" className="h-full">
                     <div className="flex items-center justify-between p-3 border-b border-editor-border">
                       <TabsList>
