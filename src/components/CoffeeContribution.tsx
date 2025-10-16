@@ -42,7 +42,6 @@ const contributionTiers = [
 
 export const CoffeeContribution = () => {
   const [selectedTier, setSelectedTier] = useState<string | null>(null);
-  const [customAmount, setCustomAmount] = useState('');
 
   const handleContribute = (amount: number, method: 'stripe' | 'paypal') => {
     // In a real app, this would integrate with actual payment processors
@@ -59,7 +58,7 @@ export const CoffeeContribution = () => {
       const tier = contributionTiers.find(t => t.id === selectedTier);
       return tier?.amount || 0;
     }
-    return parseFloat(customAmount) || 0;
+    return 0;
   };
 
   return (
@@ -104,30 +103,7 @@ export const CoffeeContribution = () => {
             ))}
           </div>
 
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle className="text-center">Custom Amount</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center justify-center gap-4">
-                <span className="text-lg">$</span>
-                <input
-                  type="number"
-                  value={customAmount}
-                  onChange={(e) => {
-                    setCustomAmount(e.target.value);
-                    setSelectedTier(null);
-                  }}
-                  placeholder="Enter custom amount"
-                  className="w-32 px-3 py-2 border rounded-md text-center"
-                  min="1"
-                  step="0.01"
-                />
-              </div>
-            </CardContent>
-          </Card>
-
-          {(selectedTier || customAmount) && (
+          {selectedTier && (
             <div className="text-center space-y-4">
               <div className="flex items-center justify-center gap-2 mb-4">
                 <Badge variant="secondary" className="text-lg px-4 py-2">
