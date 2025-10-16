@@ -4,7 +4,8 @@ import { Header } from "@/components/Header"
 import { problemsData } from "@/data/problemsData"
 import { useAppDispatch } from "@/hooks/useAppDispatch"
 import { useAppSelector } from "@/hooks/useAppSelector"
-import { markProblemSolved, incrementAttempt } from "@/store/slices/progressSlice"
+import { markProblemSolved, incrementAttempt, saveProblemCode } from "@/store/slices/progressSlice"
+import { toast } from "sonner"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge" 
@@ -49,12 +50,23 @@ const Problem = () => {
   const [results, setResults] = useState<any[]>([])
   const [testsPassed, setTestsPassed] = useState<boolean | null>(null)
   const { theme } = useTheme()
+  
+  // Load saved or submitted code when problem changes
+  useEffect(() => {
+    const savedCodeFromStore = solvedProblems[problemData.id]?.submittedCode || solvedProblems[problemData.id]?.savedCode;
+    if (savedCodeFromStore) {
+      setCode(savedCodeFromStore);
+    } else {
+      setCode(problemData.initialCode);
+    }
+    setResults([]);
+    setTestsPassed(null);
+  }, [problemData.id, solvedProblems])
 
   const handleRunCode = async () => {
     setIsRunning(true);
-    dispatch(incrementAttempt(problemData.id));
     
-    // Simulate code execution
+    // Simulate code execution (only run against test cases, no submission)
     setTimeout(() => {
       setResults([
         { id: 3, name: "Bob Johnson", department: "Engineering", salary: 80000, hire_date: "2021-11-10" },
@@ -62,13 +74,15 @@ const Problem = () => {
       ]);
       setTestsPassed(true);
       setIsRunning(false);
-    }, 2000);
+      toast.success("Code executed successfully");
+    }, 1500);
   };
   
   const handleSubmit = () => {
     setIsRunning(true);
+    dispatch(incrementAttempt(problemData.id));
     
-    // Simulate test execution
+    // Simulate test execution and submission
     setTimeout(() => {
       const passed = Math.random() > 0.3; // 70% success rate for demo
       setTestsPassed(passed);
@@ -76,12 +90,28 @@ const Problem = () => {
       if (passed) {
         dispatch(markProblemSolved({ 
           problemId: problemData.id, 
-          difficulty: problemData.difficulty 
+          difficulty: problemData.difficulty,
+          submittedCode: code
         }));
+        toast.success("Solution submitted successfully!");
+      } else {
+        toast.error("Some test cases failed. Try again!");
       }
       
       setIsRunning(false);
     }, 2500);
+  }
+  
+  const handleSaveCode = () => {
+    dispatch(saveProblemCode({ problemId: problemData.id, code }));
+    toast.success("Code saved successfully");
+  }
+  
+  const handleResetCode = () => {
+    setCode(problemData.initialCode);
+    setResults([]);
+    setTestsPassed(null);
+    toast.info("Code reset to initial state");
   }
 
   const handleAIFeedback = () => {
@@ -216,11 +246,11 @@ const Problem = () => {
                   <Button
                     size="sm"
                     variant="outline"
-                    onClick={() => setCode(problemData.initialCode)}
+                    onClick={handleResetCode}
                   >
                     Reset
                   </Button>
-                  <Button size="sm" variant="outline">
+                  <Button size="sm" variant="outline" onClick={handleSaveCode}>
                     <Save className="h-4 w-4 mr-1" />
                     Save
                   </Button>

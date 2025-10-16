@@ -5,6 +5,8 @@ interface ProblemProgress {
   solved: boolean;
   attempts: number;
   lastAttempt?: string;
+  savedCode?: string;
+  submittedCode?: string;
 }
 
 interface ProgressState {
@@ -32,8 +34,8 @@ const progressSlice = createSlice({
   name: 'progress',
   initialState,
   reducers: {
-    markProblemSolved: (state, action: PayloadAction<{ problemId: string; difficulty: 'Easy' | 'Medium' | 'Hard' }>) => {
-      const { problemId, difficulty } = action.payload;
+    markProblemSolved: (state, action: PayloadAction<{ problemId: string; difficulty: 'Easy' | 'Medium' | 'Hard'; submittedCode: string }>) => {
+      const { problemId, difficulty, submittedCode } = action.payload;
       
       if (!state.solvedProblems[problemId]?.solved) {
         // New solved problem
@@ -41,7 +43,8 @@ const progressSlice = createSlice({
           problemId,
           solved: true,
           attempts: state.solvedProblems[problemId]?.attempts || 1,
-          lastAttempt: new Date().toISOString()
+          lastAttempt: new Date().toISOString(),
+          submittedCode
         };
         
         state.totalSolved++;
@@ -49,6 +52,24 @@ const progressSlice = createSlice({
         if (difficulty === 'Easy') state.easyCount++;
         else if (difficulty === 'Medium') state.mediumCount++;
         else if (difficulty === 'Hard') state.hardCount++;
+      } else {
+        // Update existing solved problem with new code
+        state.solvedProblems[problemId].submittedCode = submittedCode;
+        state.solvedProblems[problemId].lastAttempt = new Date().toISOString();
+      }
+    },
+    
+    saveProblemCode: (state, action: PayloadAction<{ problemId: string; code: string }>) => {
+      const { problemId, code } = action.payload;
+      if (!state.solvedProblems[problemId]) {
+        state.solvedProblems[problemId] = { 
+          problemId,
+          solved: false, 
+          attempts: 0, 
+          savedCode: code 
+        };
+      } else {
+        state.solvedProblems[problemId].savedCode = code;
       }
     },
     
@@ -76,5 +97,5 @@ const progressSlice = createSlice({
   }
 });
 
-export const { markProblemSolved, incrementAttempt, resetProgress } = progressSlice.actions;
+export const { markProblemSolved, incrementAttempt, resetProgress, saveProblemCode } = progressSlice.actions;
 export default progressSlice.reducer;
