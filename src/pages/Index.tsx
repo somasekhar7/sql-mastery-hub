@@ -14,9 +14,9 @@ const Index = () => {
   const intermediateTopics = sqlTopics.filter(topic => topic.category === "intermediate") 
   const advancedTopics = sqlTopics.filter(topic => topic.category === "advanced")
 
-  const handleStartLearning = (topicId: string) => {
-    // Navigate to first problem in this topic - for now using a sample problem
-    navigate('/problem/basic-select-1')
+  const handleStartLearning = (topicId: string, conceptTitle: string) => {
+    // Navigate to Problems page and open the specific concept
+    navigate('/problems', { state: { openConcept: conceptTitle } })
   }
 
   const stats = [
@@ -115,7 +115,7 @@ const Index = () => {
                   icon={<topic.icon className="h-5 w-5 text-primary-foreground" />}
                   completed={topic.completed}
                   concepts={topic.concepts}
-                  onStartLearning={() => handleStartLearning(topic.id)}
+                  onStartLearning={() => handleStartLearning(topic.id, topic.title)}
                 />
               ))}
             </div>
@@ -141,7 +141,7 @@ const Index = () => {
                   icon={<topic.icon className="h-5 w-5 text-primary-foreground" />}
                   completed={topic.completed}
                   concepts={topic.concepts}
-                  onStartLearning={() => handleStartLearning(topic.id)}
+                  onStartLearning={() => handleStartLearning(topic.id, topic.title)}
                 />
               ))}
             </div>
@@ -167,7 +167,7 @@ const Index = () => {
                   icon={<topic.icon className="h-5 w-5 text-primary-foreground" />}
                   completed={topic.completed}
                   concepts={topic.concepts}
-                  onStartLearning={() => handleStartLearning(topic.id)}
+                  onStartLearning={() => handleStartLearning(topic.id, topic.title)}
                 />
               ))}
             </div>

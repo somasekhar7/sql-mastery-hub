@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -12,9 +12,44 @@ import { useAppSelector } from "@/hooks/useAppSelector";
 
 const Problems = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [openLevels, setOpenLevels] = useState<string[]>(['Fundamentals']);
   const [openConcepts, setOpenConcepts] = useState<string[]>([]);
   const { solvedProblems, totalSolved, easyCount, mediumCount, hardCount } = useAppSelector((state) => state.progress);
+
+  // Handle navigation from homepage - open specific concept
+  useEffect(() => {
+    const state = location.state as { openConcept?: string };
+    if (state?.openConcept) {
+      // Find which level this concept belongs to
+      const conceptName = state.openConcept;
+      let conceptLevel = '';
+      
+      for (const [level, concepts] of Object.entries(conceptsByLevel)) {
+        if (concepts.includes(conceptName)) {
+          conceptLevel = level;
+          break;
+        }
+      }
+      
+      // Open the level and concept
+      if (conceptLevel) {
+        setOpenLevels(prev => [...new Set([...prev, conceptLevel])]);
+        setOpenConcepts(prev => [...new Set([...prev, conceptName])]);
+        
+        // Scroll to the concept after a brief delay for rendering
+        setTimeout(() => {
+          const conceptElement = document.getElementById(`concept-${conceptName.replace(/\s+/g, '-').toLowerCase()}`);
+          if (conceptElement) {
+            conceptElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }, 300);
+      }
+      
+      // Clear the state to prevent re-opening on subsequent renders
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   const difficultyColors = {
     Easy: "text-emerald-500 border-emerald-500",
@@ -198,7 +233,11 @@ const Problems = () => {
                         const description = getConceptDescription(concept);
                         
                         return (
-                          <Card key={concept} className="border-border bg-muted/20">
+                          <Card 
+                            key={concept} 
+                            id={`concept-${concept.replace(/\s+/g, '-').toLowerCase()}`}
+                            className="border-border bg-muted/20"
+                          >
                             <Collapsible open={isConceptOpen} onOpenChange={() => toggleConcept(concept)}>
                               <CollapsibleTrigger className="w-full">
                                 <div className="p-4 flex items-center justify-between hover:bg-muted/50 transition-colors rounded-lg">
