@@ -8,7 +8,7 @@ import { LoginDialog } from "@/components/auth/LoginDialog"
 import { RegisterDialog } from "@/components/auth/RegisterDialog"
 import { useAppSelector, useAppDispatch } from "@/hooks"
 import { logout } from "@/store/slices/authSlice"
-import { User, Code, BookOpen, LogOut, Settings } from "lucide-react"
+import { User, Code, BookOpen, LogOut, Settings, MessageCircle } from "lucide-react"
 
 export function Header() {
   const navigate = useNavigate()
@@ -55,6 +55,14 @@ export function Header() {
               onClick={() => navigate('/problems')}
             >
               Problems
+            </Button>
+            <Button 
+              variant="ghost" 
+              className={location.pathname === '/contact' ? "text-foreground" : "text-muted-foreground hover:text-foreground"}
+              onClick={() => navigate('/contact')}
+            >
+              <MessageCircle className="h-4 w-4 mr-2" />
+              Contact
             </Button>
           </nav>
 
