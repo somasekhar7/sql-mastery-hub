@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate, useLocation } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -10,6 +11,8 @@ import { logout } from "@/store/slices/authSlice"
 import { User, Code, BookOpen, LogOut, Settings } from "lucide-react"
 
 export function Header() {
+  const navigate = useNavigate()
+  const location = useLocation()
   const [loginOpen, setLoginOpen] = useState(false)
   const [registerOpen, setRegisterOpen] = useState(false)
   const { user, isAuthenticated } = useAppSelector((state) => state.auth)
@@ -23,7 +26,10 @@ export function Header() {
     <>
       <header className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
         <div className="container flex h-16 items-center justify-between">
-          <div className="flex items-center space-x-2">
+          <div 
+            className="flex items-center space-x-2 cursor-pointer"
+            onClick={() => navigate('/')}
+          >
             <div className="flex items-center space-x-2">
               <div className="h-8 w-8 rounded-lg bg-gradient-primary flex items-center justify-center">
                 <Code className="h-4 w-4 text-primary-foreground" />
@@ -35,15 +41,20 @@ export function Header() {
           </div>
 
           <nav className="flex items-center space-x-6">
-            <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
+            <Button 
+              variant="ghost" 
+              className={location.pathname === '/' ? "text-foreground" : "text-muted-foreground hover:text-foreground"}
+              onClick={() => navigate('/')}
+            >
               <BookOpen className="h-4 w-4 mr-2" />
               Learn
             </Button>
-            <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
+            <Button 
+              variant="ghost" 
+              className={location.pathname === '/problems' ? "text-foreground" : "text-muted-foreground hover:text-foreground"}
+              onClick={() => navigate('/problems')}
+            >
               Problems
-            </Button>
-            <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-              Practice
             </Button>
           </nav>
 

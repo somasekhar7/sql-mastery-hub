@@ -1,5 +1,10 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useParams, useNavigate } from "react-router-dom"
 import { Header } from "@/components/Header"
+import { problemsData } from "@/data/problemsData"
+import { useAppDispatch } from "@/hooks/useAppDispatch"
+import { useAppSelector } from "@/hooks/useAppSelector"
+import { markProblemSolved, incrementAttempt } from "@/store/slices/progressSlice"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge" 
@@ -17,60 +22,27 @@ import {
   Trophy, 
   Lightbulb,
   CheckCircle,
-  XCircle 
+  XCircle,
+  Loader2,
+  ArrowLeft
 } from "lucide-react"
 
-// Sample problem data
-const problemData = {
-  id: "basic-select-1",
-  title: "Employee Information Query",
-  difficulty: "Easy" as const,
-  category: "Basic Queries",
-  description: `
-Write a SQL query to retrieve all employee information from the 'employees' table where the salary is greater than 50000.
-
-**Table Schema:**
-\`\`\`sql
-employees (
-  id INT PRIMARY KEY,
-  name VARCHAR(100),
-  department VARCHAR(50),
-  salary DECIMAL(10,2),
-  hire_date DATE
-)
-\`\`\`
-
-**Sample Data:**
-| id | name | department | salary | hire_date |
-|----|------|------------|--------|-----------|
-| 1 | John Doe | Engineering | 75000 | 2022-01-15 |
-| 2 | Jane Smith | Marketing | 45000 | 2022-02-20 |
-| 3 | Bob Johnson | Engineering | 80000 | 2021-11-10 |
-
-**Expected Output:**
-Should return employees with salary > 50000, ordered by salary descending.
-  `,
-  hints: [
-    "Use the SELECT statement to choose columns",
-    "Apply WHERE clause for salary condition", 
-    "Consider using ORDER BY for sorting results",
-    "Remember to use proper comparison operators"
-  ],
-  initialCode: "-- Write your SQL query here\nSELECT ",
-  solution: "SELECT * FROM employees WHERE salary > 50000 ORDER BY salary DESC;",
-  testCases: [
-    {
-      description: "Basic functionality test",
-      expected: "Returns 2 rows with John Doe and Bob Johnson"
-    },
-    {
-      description: "Sorting verification",
-      expected: "Results ordered by salary descending (80000, 75000)"
-    }
-  ]
-}
-
 const Problem = () => {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { solvedProblems } = useAppSelector((state) => state.progress);
+  
+  const problemData = problemsData.find(p => p.id === id);
+  
+  useEffect(() => {
+    if (!problemData) {
+      navigate('/problems');
+    }
+  }, [problemData, navigate]);
+  
+  if (!problemData) return null;
+  
   const [code, setCode] = useState(problemData.initialCode)
   const [isRunning, setIsRunning] = useState(false)
   const [showHints, setShowHints] = useState(false)
@@ -79,16 +51,37 @@ const Problem = () => {
   const { theme } = useTheme()
 
   const handleRunCode = async () => {
-    setIsRunning(true)
+    setIsRunning(true);
+    dispatch(incrementAttempt(problemData.id));
+    
     // Simulate code execution
     setTimeout(() => {
       setResults([
         { id: 3, name: "Bob Johnson", department: "Engineering", salary: 80000, hire_date: "2021-11-10" },
         { id: 1, name: "John Doe", department: "Engineering", salary: 75000, hire_date: "2022-01-15" }
-      ])
-      setTestsPassed(true)
-      setIsRunning(false)
-    }, 2000)
+      ]);
+      setTestsPassed(true);
+      setIsRunning(false);
+    }, 2000);
+  };
+  
+  const handleSubmit = () => {
+    setIsRunning(true);
+    
+    // Simulate test execution
+    setTimeout(() => {
+      const passed = Math.random() > 0.3; // 70% success rate for demo
+      setTestsPassed(passed);
+      
+      if (passed) {
+        dispatch(markProblemSolved({ 
+          problemId: problemData.id, 
+          difficulty: problemData.difficulty 
+        }));
+      }
+      
+      setIsRunning(false);
+    }, 2500);
   }
 
   const handleAIFeedback = () => {
@@ -102,11 +95,23 @@ const Problem = () => {
     Hard: "bg-destructive text-destructive-foreground"
   }
 
+  const isSolved = solvedProblems[problemData.id]?.solved || false;
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
       
       <div className="container py-6">
+        {/* Back Button */}
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          className="mb-4"
+          onClick={() => navigate('/problems')}
+        >
+          <ArrowLeft className="h-4 w-4 mr-2" />
+          Back to Problems
+        </Button>
         <ResizablePanelGroup direction="horizontal" className="min-h-[calc(100vh-120px)]">
           {/* Problem Description Panel */}
           <ResizablePanel defaultSize={45} minSize={30}>
@@ -114,7 +119,12 @@ const Problem = () => {
               {/* Problem Header */}
               <div className="p-6 border-b border-border">
                 <div className="flex items-center justify-between mb-4">
-                  <h1 className="text-2xl font-bold">{problemData.title}</h1>
+                  <div className="flex items-center gap-3">
+                    <h1 className="text-2xl font-bold">{problemData.title}</h1>
+                    {isSolved && (
+                      <CheckCircle className="h-6 w-6 text-primary" />
+                    )}
+                  </div>
                   <Badge className={difficultyColors[problemData.difficulty]}>
                     {problemData.difficulty}
                   </Badge>
@@ -122,12 +132,17 @@ const Problem = () => {
                 <div className="flex items-center gap-4 text-sm text-muted-foreground">
                   <span className="flex items-center gap-1">
                     <Trophy className="h-4 w-4" />
-                    {problemData.category}
+                    {problemData.concept}
                   </span>
                   <span className="flex items-center gap-1">
                     <Clock className="h-4 w-4" />
-                    ~15 min
+                    {problemData.estimatedTime}
                   </span>
+                  {solvedProblems[problemData.id]?.attempts && (
+                    <span className="flex items-center gap-1">
+                      🔄 {solvedProblems[problemData.id].attempts} attempts
+                    </span>
+                  )}
                 </div>
               </div>
 
@@ -257,16 +272,40 @@ const Problem = () => {
                           size="sm" 
                           onClick={handleRunCode}
                           disabled={isRunning}
+                          variant="outline"
+                        >
+                          {isRunning ? (
+                            <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                          ) : (
+                            <Play className="h-4 w-4 mr-1" />
+                          )}
+                          {isRunning ? "Running..." : "Run Code"}
+                        </Button>
+                        <Button 
+                          size="sm" 
+                          onClick={handleSubmit}
+                          disabled={isRunning}
                           className="bg-gradient-primary hover:opacity-90"
                         >
-                          <Play className="h-4 w-4 mr-1" />
-                          {isRunning ? "Running..." : "Run Code"}
+                          {isRunning ? (
+                            <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                          ) : (
+                            <CheckCircle className="h-4 w-4 mr-1" />
+                          )}
+                          Submit
                         </Button>
                       </div>
                     </div>
 
                     <TabsContent value="output" className="p-3 h-full overflow-y-auto">
-                      {results.length > 0 ? (
+                      {isRunning ? (
+                        <div className="flex items-center justify-center h-full">
+                          <div className="text-center">
+                            <Loader2 className="h-8 w-8 animate-spin mx-auto mb-3 text-primary" />
+                            <p className="text-sm text-muted-foreground">Executing query...</p>
+                          </div>
+                        </div>
+                      ) : results.length > 0 ? (
                         <div className="space-y-3">
                           <div className="flex items-center gap-2 text-sm">
                             <CheckCircle className="h-4 w-4 text-success" />
