@@ -6,15 +6,17 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { LoginDialog } from "@/components/auth/LoginDialog"
 import { RegisterDialog } from "@/components/auth/RegisterDialog"
+import { ForgotPasswordDialog } from "@/components/auth/ForgotPasswordDialog"
 import { useAppSelector, useAppDispatch } from "@/hooks"
 import { logout } from "@/store/slices/authSlice"
-import { User, Code, BookOpen, LogOut, Settings, MessageCircle } from "lucide-react"
+import { User as UserIcon, Code, BookOpen, LogOut, Settings, MessageCircle, UserCircle } from "lucide-react"
 
 export function Header() {
   const navigate = useNavigate()
   const location = useLocation()
   const [loginOpen, setLoginOpen] = useState(false)
   const [registerOpen, setRegisterOpen] = useState(false)
+  const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false)
   const { user, isAuthenticated } = useAppSelector((state) => state.auth)
   const dispatch = useAppDispatch()
 
@@ -89,6 +91,10 @@ export function Header() {
                     </div>
                   </div>
                   <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => navigate('/profile')}>
+                    <UserCircle className="mr-2 h-4 w-4" />
+                    <span>Profile</span>
+                  </DropdownMenuItem>
                   <DropdownMenuItem>
                     <Settings className="mr-2 h-4 w-4" />
                     <span>Settings</span>
@@ -106,7 +112,7 @@ export function Header() {
                   Sign In
                 </Button>
                 <Button size="sm" className="bg-gradient-primary hover:opacity-90 text-primary-foreground border-0" onClick={() => setRegisterOpen(true)}>
-                  <User className="h-4 w-4 mr-2" />
+                  <UserIcon className="h-4 w-4 mr-2" />
                   Sign Up
                 </Button>
               </div>
@@ -115,8 +121,13 @@ export function Header() {
         </div>
       </header>
 
-      <LoginDialog open={loginOpen} onOpenChange={setLoginOpen} />
+      <LoginDialog 
+        open={loginOpen} 
+        onOpenChange={setLoginOpen}
+        onForgotPassword={() => setForgotPasswordOpen(true)}
+      />
       <RegisterDialog open={registerOpen} onOpenChange={setRegisterOpen} />
+      <ForgotPasswordDialog open={forgotPasswordOpen} onOpenChange={setForgotPasswordOpen} />
     </>
   )
 }
