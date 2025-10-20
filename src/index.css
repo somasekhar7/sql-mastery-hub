@@ -6,82 +6,82 @@
 
 @layer base {
   :root {
-    /* Base Colors - Dark Navy Theme */
-    --background: 215 45% 12%;
-    --foreground: 210 40% 98%;
+    /* Base Colors - LeetCode-inspired Dark Theme */
+    --background: 0 0% 7%;
+    --foreground: 0 0% 95%;
 
-    /* Brand Colors - AlgoExpert Blue */
-    --primary: 225 73% 57%;
-    --primary-foreground: 210 40% 98%;
-    --primary-light: 225 73% 67%;
-    --primary-dark: 225 73% 47%;
+    /* Brand Colors - Orange accent like LeetCode */
+    --primary: 27 96% 61%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 27 96% 71%;
+    --primary-dark: 27 96% 51%;
 
-    /* Secondary - Navy */
-    --secondary: 215 45% 20%;
-    --secondary-foreground: 210 40% 98%;
+    /* Secondary - Dark Gray */
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 0 0% 95%;
 
-    /* Success - SQL Green */
+    /* Success - Green */
     --success: 142 76% 46%;
     --success-foreground: 0 0% 98%;
     --success-light: 142 76% 56%;
 
-    /* Warning - SQL Orange */
-    --warning: 38 92% 60%;
-    --warning-foreground: 0 0% 98%;
+    /* Warning - Yellow */
+    --warning: 45 93% 58%;
+    --warning-foreground: 0 0% 10%;
 
-    /* Error - SQL Red */
+    /* Error - Red */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
     /* Neutral Colors */
-    --muted: 215 35% 25%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 215 45% 20%;
-    --accent-foreground: 210 40% 98%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 63%;
+    --accent: 0 0% 14%;
+    --accent-foreground: 0 0% 95%;
 
     /* UI Elements */
-    --card: 215 40% 16%;
-    --card-foreground: 210 40% 98%;
-    --popover: 215 40% 16%;
-    --popover-foreground: 210 40% 98%;
-    --border: 215 35% 25%;
-    --input: 215 35% 25%;
-    --ring: 225 73% 57%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 95%;
+    --border: 0 0% 20%;
+    --input: 0 0% 14%;
+    --ring: 27 96% 61%;
 
     /* Code Editor Colors */
-    --editor-bg: 215 40% 18%;
-    --editor-border: 215 35% 28%;
-    --code-bg: 215 45% 14%;
+    --editor-bg: 0 0% 12%;
+    --editor-border: 0 0% 20%;
+    --code-bg: 0 0% 8%;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(225 73% 57%), hsl(250 100% 76%));
+    --gradient-primary: linear-gradient(135deg, hsl(27 96% 61%), hsl(45 93% 58%));
     --gradient-success: linear-gradient(135deg, hsl(142 76% 46%), hsl(142 76% 56%));
-    --gradient-hero: linear-gradient(135deg, hsl(215 45% 12%) 0%, hsl(215 45% 18%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(215 40% 16%) 0%, hsl(215 35% 20%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 7%) 0%, hsl(0 0% 12%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 10%) 0%, hsl(0 0% 14%) 100%);
 
     /* Shadows */
-    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.2);
-    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.3), 0 2px 4px -1px hsl(0 0% 0% / 0.2);
-    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.4), 0 4px 6px -2px hsl(0 0% 0% / 0.3);
-    --shadow-glow: 0 0 40px hsl(225 73% 57% / 0.4);
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.3);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.4), 0 2px 4px -1px hsl(0 0% 0% / 0.3);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.5), 0 4px 6px -2px hsl(0 0% 0% / 0.4);
+    --shadow-glow: 0 0 40px hsl(27 96% 61% / 0.4);
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    --sidebar-background: 215 40% 16%;
+    --sidebar-background: 0 0% 10%;
 
-    --sidebar-foreground: 210 40% 98%;
+    --sidebar-foreground: 0 0% 95%;
 
-    --sidebar-primary: 225 73% 57%;
+    --sidebar-primary: 27 96% 61%;
 
-    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-primary-foreground: 0 0% 100%;
 
-    --sidebar-accent: 215 45% 20%;
+    --sidebar-accent: 0 0% 14%;
 
-    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-accent-foreground: 0 0% 95%;
 
-    --sidebar-border: 215 35% 25%;
+    --sidebar-border: 0 0% 20%;
 
-    --sidebar-ring: 225 73% 57%;
+    --sidebar-ring: 27 96% 61%;
   }
 
   .dark {
