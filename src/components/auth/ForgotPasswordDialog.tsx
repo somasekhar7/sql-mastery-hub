@@ -35,14 +35,14 @@ export const ForgotPasswordDialog = ({ open, onOpenChange }: ForgotPasswordDialo
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle>Reset Password</DialogTitle>
-          <DialogDescription>
+      <DialogContent className="sm:max-w-md p-8 bg-background border border-border">
+        <DialogHeader className="space-y-2">
+          <DialogTitle className="text-2xl font-bold text-foreground">Reset Password</DialogTitle>
+          <DialogDescription className="text-muted-foreground">
             Enter your email address and we'll send you a link to reset your password.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
           <div className="space-y-2">
             <Label htmlFor="reset-email">Email</Label>
             <Input
@@ -52,9 +52,14 @@ export const ForgotPasswordDialog = ({ open, onOpenChange }: ForgotPasswordDialo
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               disabled={isLoading}
+              className="h-11 border-border focus-visible:ring-primary"
             />
           </div>
-          <Button type="submit" className="w-full" disabled={isLoading}>
+          <Button 
+            type="submit" 
+            className="w-full h-11 bg-primary text-primary-foreground hover:bg-primary-dark transition-colors font-semibold" 
+            disabled={isLoading}
+          >
             {isLoading ? 'Sending...' : 'Send Reset Link'}
           </Button>
         </form>
