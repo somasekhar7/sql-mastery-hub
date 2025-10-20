@@ -159,4 +159,13 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Enhanced animations */
+  .delay-1000 {
+    animation-delay: 1s;
+  }
+  
+  .delay-2000 {
+    animation-delay: 2s;
+  }
 }

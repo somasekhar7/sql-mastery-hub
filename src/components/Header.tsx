@@ -26,17 +26,17 @@ export function Header() {
 
   return (
     <>
-      <header className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
+      <header className="border-b-2 border-primary/20 bg-gradient-to-r from-background via-card to-background backdrop-blur-xl supports-[backdrop-filter]:bg-background/80 sticky top-0 z-50 shadow-lg shadow-primary/5">
         <div className="container flex h-16 items-center justify-between">
           <div 
-            className="flex items-center space-x-2 cursor-pointer"
+            className="flex items-center space-x-2 cursor-pointer group"
             onClick={() => navigate('/')}
           >
             <div className="flex items-center space-x-2">
-              <div className="h-8 w-8 rounded-lg bg-gradient-primary flex items-center justify-center">
-                <Code className="h-4 w-4 text-primary-foreground" />
+              <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-warning flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg group-hover:shadow-primary/50">
+                <Code className="h-4 w-4 text-primary-foreground group-hover:rotate-12 transition-transform duration-300" />
               </div>
-              <h1 className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+              <h1 className="text-xl font-bold bg-gradient-to-r from-primary via-warning to-primary bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300">
                 SQL Master
               </h1>
             </div>
@@ -45,7 +45,7 @@ export function Header() {
           <nav className="flex items-center space-x-6">
             <Button 
               variant="ghost" 
-              className={location.pathname === '/' ? "text-foreground" : "text-muted-foreground hover:text-foreground"}
+              className={`${location.pathname === '/' ? "text-foreground font-semibold border-b-2 border-primary" : "text-muted-foreground hover:text-foreground"} transition-all duration-300 hover:scale-105`}
               onClick={() => navigate('/')}
             >
               <BookOpen className="h-4 w-4 mr-2" />
@@ -53,14 +53,14 @@ export function Header() {
             </Button>
             <Button 
               variant="ghost" 
-              className={location.pathname === '/problems' ? "text-foreground" : "text-muted-foreground hover:text-foreground"}
+              className={`${location.pathname === '/problems' ? "text-foreground font-semibold border-b-2 border-primary" : "text-muted-foreground hover:text-foreground"} transition-all duration-300 hover:scale-105`}
               onClick={() => navigate('/problems')}
             >
               Problems
             </Button>
             <Button 
               variant="ghost" 
-              className={location.pathname === '/contact' ? "text-foreground" : "text-muted-foreground hover:text-foreground"}
+              className={`${location.pathname === '/contact' ? "text-foreground font-semibold border-b-2 border-primary" : "text-muted-foreground hover:text-foreground"} transition-all duration-300 hover:scale-105`}
               onClick={() => navigate('/contact')}
             >
               <MessageCircle className="h-4 w-4 mr-2" />
@@ -108,11 +108,20 @@ export function Header() {
               </DropdownMenu>
             ) : (
               <div className="flex items-center space-x-2">
-                <Button variant="ghost" size="sm" onClick={() => setLoginOpen(true)}>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={() => setLoginOpen(true)}
+                  className="hover:bg-primary/10 hover:text-primary transition-all duration-300 hover:scale-105 font-semibold"
+                >
                   Sign In
                 </Button>
-                <Button size="sm" className="bg-gradient-primary hover:opacity-90 text-primary-foreground border-0" onClick={() => setRegisterOpen(true)}>
-                  <UserIcon className="h-4 w-4 mr-2" />
+                <Button 
+                  size="sm" 
+                  className="bg-gradient-to-r from-primary to-warning hover:from-warning hover:to-primary text-primary-foreground border-0 shadow-lg hover:shadow-[0_0_20px_rgba(255,167,38,0.4)] transition-all duration-300 hover:scale-110 font-semibold group" 
+                  onClick={() => setRegisterOpen(true)}
+                >
+                  <UserIcon className="h-4 w-4 mr-2 group-hover:rotate-12 transition-transform duration-300" />
                   Sign Up
                 </Button>
               </div>

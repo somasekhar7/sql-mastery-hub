@@ -41,11 +41,14 @@ export function SqlTopicCard({
   }
 
   return (
-    <Card className="group hover:shadow-lg transition-all duration-300 hover:shadow-glow/20 bg-gradient-card border-border/50">
-      <CardHeader className="space-y-4">
+    <Card className="group hover:scale-[1.02] hover:shadow-2xl transition-all duration-500 hover:shadow-primary/30 bg-gradient-to-br from-card via-card/95 to-card/90 border-2 border-border/30 hover:border-primary/50 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-success/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      <div className="absolute -inset-1 bg-gradient-to-r from-primary to-success opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
+      
+      <CardHeader className="space-y-4 relative">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="h-10 w-10 rounded-lg bg-gradient-primary flex items-center justify-center">
+            <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-primary to-warning flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg group-hover:shadow-primary/50">
               {icon}
             </div>
             <div>
@@ -62,9 +65,9 @@ export function SqlTopicCard({
           {description}
         </p>
 
-        <div className="bg-muted/50 rounded-md p-2">
+        <div className="bg-gradient-to-r from-muted/50 via-muted/30 to-muted/50 rounded-lg p-3 border border-primary/10 group-hover:border-primary/30 transition-colors duration-300">
           <p className="text-xs font-medium text-foreground/80">
-            Concepts: <span className="text-primary">{concepts}</span>
+            Concepts: <span className="text-primary group-hover:text-warning transition-colors duration-300">{concepts}</span>
           </p>
         </div>
 
@@ -81,25 +84,25 @@ export function SqlTopicCard({
 
         {progress > 0 && (
           <div className="space-y-2">
-            <div className="w-full bg-muted rounded-full h-2">
+            <div className="w-full bg-muted rounded-full h-2 overflow-hidden relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-success/20 to-transparent animate-pulse"></div>
               <div 
-                className="bg-gradient-success h-2 rounded-full transition-all duration-300" 
+                className="bg-gradient-to-r from-success to-primary h-2 rounded-full transition-all duration-500 relative z-10 shadow-[0_0_10px_rgba(34,197,94,0.5)]" 
                 style={{ width: `${progress}%` }}
               />
             </div>
-            <p className="text-xs text-success font-medium">{Math.round(progress)}% Complete</p>
+            <p className="text-xs text-success font-medium group-hover:text-primary transition-colors duration-300">{Math.round(progress)}% Complete</p>
           </div>
         )}
       </CardHeader>
 
-      <CardContent className="pt-0">
+      <CardContent className="pt-0 relative">
         <Button 
-          className="w-full group-hover:bg-gradient-primary group-hover:text-primary-foreground transition-all duration-300"
-          variant="outline"
+          className="w-full bg-gradient-to-r from-primary to-warning hover:from-warning hover:to-primary text-primary-foreground transition-all duration-500 font-semibold shadow-lg hover:shadow-[0_0_20px_rgba(255,167,38,0.5)] border-0 group-hover:scale-105"
           onClick={handleStartLearning}
         >
           Start Learning
-          <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
+          <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-2 transition-transform duration-300" />
         </Button>
       </CardContent>
     </Card>
