@@ -5,14 +5,26 @@ import { CoffeeContribution } from "@/components/CoffeeContribution"
 import { sqlTopics } from "@/data/sqlTopics"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { TrendingUp, Users, Award, BookOpen } from "lucide-react"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+import { TrendingUp, Users, Award, BookOpen, ChevronDown } from "lucide-react"
 import { useNavigate } from "react-router-dom"
+import { useState } from "react"
 
 const Index = () => {
   const navigate = useNavigate()
+  const [openSections, setOpenSections] = useState({
+    fundamentals: true,
+    intermediate: true,
+    advanced: true
+  })
+  
   const fundamentalTopics = sqlTopics.filter(topic => topic.category === "fundamentals")
   const intermediateTopics = sqlTopics.filter(topic => topic.category === "intermediate") 
   const advancedTopics = sqlTopics.filter(topic => topic.category === "advanced")
+  
+  const toggleSection = (section: keyof typeof openSections) => {
+    setOpenSections(prev => ({ ...prev, [section]: !prev[section] }))
+  }
 
   const handleStartLearning = (topicId: string, conceptTitle: string) => {
     // Navigate to Problems page and open the specific concept
@@ -96,82 +108,91 @@ const Index = () => {
           </div>
 
           {/* Fundamentals */}
-          <div className="mb-12">
-            <div className="flex items-center gap-3 mb-6">
+          <Collapsible open={openSections.fundamentals} onOpenChange={() => toggleSection('fundamentals')} className="mb-12">
+            <CollapsibleTrigger className="flex items-center gap-3 mb-6 w-full group">
               <Badge className="bg-success/10 text-success border-success/20">
                 Fundamentals
               </Badge>
               <h3 className="text-xl font-semibold">Start Your SQL Journey</h3>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {fundamentalTopics.map((topic) => (
-                <SqlTopicCard
-                  key={topic.id}
-                  title={topic.title}
-                  description={topic.description}
-                  problemCount={topic.problemCount}
-                  difficulty={topic.difficulty}
-                  estimatedTime={topic.estimatedTime}
-                  icon={<topic.icon className="h-5 w-5 text-primary-foreground" />}
-                  completed={topic.completed}
-                  concepts={topic.concepts}
-                  onStartLearning={() => handleStartLearning(topic.id, topic.title)}
-                />
-              ))}
-            </div>
-          </div>
+              <ChevronDown className={`h-5 w-5 ml-auto transition-transform ${openSections.fundamentals ? 'rotate-180' : ''}`} />
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {fundamentalTopics.map((topic) => (
+                  <SqlTopicCard
+                    key={topic.id}
+                    title={topic.title}
+                    description={topic.description}
+                    problemCount={topic.problemCount}
+                    difficulty={topic.difficulty}
+                    estimatedTime={topic.estimatedTime}
+                    icon={<topic.icon className="h-5 w-5 text-primary-foreground" />}
+                    completed={topic.completed}
+                    concepts={topic.concepts}
+                    onStartLearning={() => handleStartLearning(topic.id, topic.title)}
+                  />
+                ))}
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
 
           {/* Intermediate */}
-          <div className="mb-12">
-            <div className="flex items-center gap-3 mb-6">
+          <Collapsible open={openSections.intermediate} onOpenChange={() => toggleSection('intermediate')} className="mb-12">
+            <CollapsibleTrigger className="flex items-center gap-3 mb-6 w-full group">
               <Badge className="bg-warning/10 text-warning border-warning/20">
                 Intermediate
               </Badge>
               <h3 className="text-xl font-semibold">Build Advanced Skills</h3>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {intermediateTopics.map((topic) => (
-                <SqlTopicCard
-                  key={topic.id}
-                  title={topic.title}
-                  description={topic.description}
-                  problemCount={topic.problemCount}
-                  difficulty={topic.difficulty}
-                  estimatedTime={topic.estimatedTime}
-                  icon={<topic.icon className="h-5 w-5 text-primary-foreground" />}
-                  completed={topic.completed}
-                  concepts={topic.concepts}
-                  onStartLearning={() => handleStartLearning(topic.id, topic.title)}
-                />
-              ))}
-            </div>
-          </div>
+              <ChevronDown className={`h-5 w-5 ml-auto transition-transform ${openSections.intermediate ? 'rotate-180' : ''}`} />
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {intermediateTopics.map((topic) => (
+                  <SqlTopicCard
+                    key={topic.id}
+                    title={topic.title}
+                    description={topic.description}
+                    problemCount={topic.problemCount}
+                    difficulty={topic.difficulty}
+                    estimatedTime={topic.estimatedTime}
+                    icon={<topic.icon className="h-5 w-5 text-primary-foreground" />}
+                    completed={topic.completed}
+                    concepts={topic.concepts}
+                    onStartLearning={() => handleStartLearning(topic.id, topic.title)}
+                  />
+                ))}
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
 
           {/* Advanced */}
-          <div>
-            <div className="flex items-center gap-3 mb-6">
+          <Collapsible open={openSections.advanced} onOpenChange={() => toggleSection('advanced')}>
+            <CollapsibleTrigger className="flex items-center gap-3 mb-6 w-full group">
               <Badge className="bg-destructive/10 text-destructive border-destructive/20">
                 Advanced
               </Badge>
               <h3 className="text-xl font-semibold">Master Complex Concepts</h3>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {advancedTopics.map((topic) => (
-                <SqlTopicCard
-                  key={topic.id}
-                  title={topic.title}
-                  description={topic.description}
-                  problemCount={topic.problemCount}
-                  difficulty={topic.difficulty}
-                  estimatedTime={topic.estimatedTime}
-                  icon={<topic.icon className="h-5 w-5 text-primary-foreground" />}
-                  completed={topic.completed}
-                  concepts={topic.concepts}
-                  onStartLearning={() => handleStartLearning(topic.id, topic.title)}
-                />
-              ))}
-            </div>
-          </div>
+              <ChevronDown className={`h-5 w-5 ml-auto transition-transform ${openSections.advanced ? 'rotate-180' : ''}`} />
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {advancedTopics.map((topic) => (
+                  <SqlTopicCard
+                    key={topic.id}
+                    title={topic.title}
+                    description={topic.description}
+                    problemCount={topic.problemCount}
+                    difficulty={topic.difficulty}
+                    estimatedTime={topic.estimatedTime}
+                    icon={<topic.icon className="h-5 w-5 text-primary-foreground" />}
+                    completed={topic.completed}
+                    concepts={topic.concepts}
+                    onStartLearning={() => handleStartLearning(topic.id, topic.title)}
+                  />
+                ))}
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
         </div>
       </section>
 
