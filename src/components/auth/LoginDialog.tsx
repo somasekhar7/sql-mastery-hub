@@ -123,7 +123,7 @@ export const LoginDialog = ({ open, onOpenChange, onForgotPassword }: LoginDialo
                 
                 <Button 
                   type="submit" 
-                  className="w-full h-14 text-base font-bold bg-gradient-to-r from-primary to-warning hover:from-primary/90 hover:to-warning/90 transition-all duration-300 shadow-[0_0_30px_rgba(255,167,38,0.3)] hover:shadow-[0_0_40px_rgba(255,167,38,0.5)] border-0" 
+                  className="w-full h-14 text-base font-bold bg-gradient-to-r from-primary via-primary-light to-success hover:from-success hover:via-primary-light hover:to-primary transition-all duration-300 shadow-[0_0_30px_rgba(77,144,254,0.4)] hover:shadow-[0_0_40px_rgba(77,144,254,0.6)] border-0" 
                   disabled={isLoading}
                 >
                   {isLoading ? 'Signing in...' : 'Sign In'}
@@ -136,7 +136,7 @@ export const LoginDialog = ({ open, onOpenChange, onForgotPassword }: LoginDialo
                       onOpenChange(false);
                       onForgotPassword?.();
                     }}
-                    className="text-sm text-primary hover:text-warning transition-colors hover:underline font-medium"
+                    className="text-sm text-primary hover:text-success transition-colors hover:underline font-medium"
                   >
                     Forgot password?
                   </button>

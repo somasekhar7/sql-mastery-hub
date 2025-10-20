@@ -167,7 +167,7 @@ export const RegisterDialog = ({ open, onOpenChange }: RegisterDialogProps) => {
                 
                 <Button 
                   type="submit" 
-                  className="w-full h-14 text-base font-bold bg-gradient-to-r from-success to-primary hover:from-success/90 hover:to-primary/90 transition-all duration-300 shadow-[0_0_30px_rgba(34,197,94,0.3)] hover:shadow-[0_0_40px_rgba(34,197,94,0.5)] border-0" 
+                  className="w-full h-14 text-base font-bold bg-gradient-to-r from-success via-primary-light to-primary hover:from-primary hover:via-primary-light hover:to-success transition-all duration-300 shadow-[0_0_30px_rgba(34,197,94,0.4)] hover:shadow-[0_0_40px_rgba(34,197,94,0.6)] border-0" 
                   disabled={isLoading}
                 >
                   {isLoading ? 'Creating account...' : 'Create Account'}
