@@ -59,6 +59,11 @@ const authSlice = createSlice({
       state.isAuthenticated = true;
       state.isLoading = false;
     },
+    updateAvatar: (state, action: PayloadAction<string>) => {
+      if (state.user) {
+        state.user.avatar = action.payload;
+      }
+    },
   },
 });
 
@@ -81,5 +86,5 @@ export const loginUser = (email: string, password: string) => {
   };
 };
 
-export const { loginStart, loginSuccess, loginFailure, logout, register } = authSlice.actions;
+export const { loginStart, loginSuccess, loginFailure, logout, register, updateAvatar } = authSlice.actions;
 export default authSlice.reducer;

@@ -7,14 +7,16 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { useAppSelector } from '@/hooks';
+import { useAppSelector, useAppDispatch } from '@/hooks';
 import { useNavigate } from 'react-router-dom';
-import { Edit, Eye, EyeOff } from 'lucide-react';
+import { Edit, Eye, EyeOff, Camera } from 'lucide-react';
 import { toast } from 'sonner';
+import { updateAvatar } from '@/store/slices/authSlice';
 
 const Profile = () => {
   const { user, isAuthenticated } = useAppSelector((state) => state.auth);
   const progress = useAppSelector((state) => state.progress);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
@@ -54,6 +56,35 @@ const Profile = () => {
     setConfirmPassword('');
   };
 
+  const handleImageUpload = () => {
+    // @ts-ignore - Cloudinary widget
+    if (window.cloudinary) {
+      // @ts-ignore
+      const widget = window.cloudinary.createUploadWidget(
+        {
+          cloudName: 'YOUR_CLOUD_NAME', // User needs to replace this
+          uploadPreset: 'YOUR_UPLOAD_PRESET', // User needs to replace this
+          sources: ['local', 'camera'],
+          multiple: false,
+          cropping: true,
+          croppingAspectRatio: 1,
+          croppingShowDimensions: true,
+          folder: 'profile_pictures',
+        },
+        (error: any, result: any) => {
+          if (!error && result && result.event === 'success') {
+            const imageUrl = result.info.secure_url;
+            dispatch(updateAvatar(imageUrl));
+            toast.success('Profile picture updated successfully!');
+          }
+        }
+      );
+      widget.open();
+    } else {
+      toast.error('Please add Cloudinary configuration first');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -67,12 +98,21 @@ const Profile = () => {
               <CardContent className="pt-6">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-4">
-                    <Avatar className="h-20 w-20">
-                      <AvatarImage src={user?.avatar} alt={user?.name} />
-                      <AvatarFallback className="text-2xl">
-                        {user?.name?.charAt(0).toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
+                    <div className="relative group">
+                      <Avatar className="h-20 w-20">
+                        <AvatarImage src={user?.avatar} alt={user?.name} />
+                        <AvatarFallback className="text-2xl">
+                          {user?.name?.charAt(0).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                      <button
+                        onClick={handleImageUpload}
+                        className="absolute inset-0 flex items-center justify-center rounded-full bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity"
+                        title="Change profile picture"
+                      >
+                        <Camera className="h-8 w-8 text-white" />
+                      </button>
+                    </div>
                     <div>
                       <h2 className="text-2xl font-bold">{user?.name}</h2>
                       <p className="text-muted-foreground">{user?.email}</p>
