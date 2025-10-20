@@ -48,7 +48,7 @@ export function SqlTopicCard({
       <CardHeader className="space-y-4 relative">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-primary to-success flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg group-hover:shadow-primary/50">
+            <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-primary to-primary-light flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg group-hover:shadow-primary/50">
               {icon}
             </div>
             <div>
@@ -67,7 +67,7 @@ export function SqlTopicCard({
 
         <div className="bg-gradient-to-r from-muted/50 via-muted/30 to-muted/50 rounded-lg p-3 border border-primary/10 group-hover:border-primary/30 transition-colors duration-300">
           <p className="text-xs font-medium text-foreground/80">
-            Concepts: <span className="text-primary group-hover:text-success transition-colors duration-300">{concepts}</span>
+            Concepts: <span className="text-primary group-hover:text-primary-light transition-colors duration-300">{concepts}</span>
           </p>
         </div>
 
@@ -98,7 +98,7 @@ export function SqlTopicCard({
 
       <CardContent className="pt-0 relative">
         <Button 
-          className="w-full bg-gradient-to-r from-primary via-primary-light to-success hover:from-success hover:via-primary-light hover:to-primary text-primary-foreground transition-all duration-500 font-semibold shadow-lg hover:shadow-[0_0_20px_rgba(77,144,254,0.6)] border-0 group-hover:scale-105"
+          className="w-full bg-gradient-to-r from-primary to-primary-light hover:from-primary-dark hover:to-primary text-primary-foreground transition-all duration-500 font-semibold shadow-lg hover:shadow-[0_0_20px_rgba(77,144,254,0.6)] border-0 group-hover:scale-105"
           onClick={handleStartLearning}
         >
           Start Learning

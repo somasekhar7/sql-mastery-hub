@@ -33,10 +33,10 @@ export function Header() {
             onClick={() => navigate('/')}
           >
             <div className="flex items-center space-x-2">
-              <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-success flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg group-hover:shadow-primary/50">
+              <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-primary-light flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg group-hover:shadow-primary/50">
                 <Code className="h-4 w-4 text-primary-foreground group-hover:rotate-12 transition-transform duration-300" />
               </div>
-              <h1 className="text-xl font-bold bg-gradient-to-r from-primary via-success to-primary bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300">
+              <h1 className="text-xl font-bold bg-gradient-to-r from-primary via-primary-light to-primary bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300">
                 SQL Master
               </h1>
             </div>
@@ -118,7 +118,7 @@ export function Header() {
                 </Button>
                 <Button 
                   size="sm" 
-                  className="bg-gradient-to-r from-primary to-success hover:from-success hover:to-primary text-primary-foreground border-0 shadow-lg hover:shadow-[0_0_20px_rgba(77,144,254,0.5)] transition-all duration-300 hover:scale-110 font-semibold group" 
+                  className="bg-gradient-to-r from-primary to-primary-light hover:from-primary-dark hover:to-primary text-primary-foreground border-0 shadow-lg hover:shadow-[0_0_20px_rgba(77,144,254,0.5)] transition-all duration-300 hover:scale-110 font-semibold group" 
                   onClick={() => setRegisterOpen(true)}
                 >
                   <UserIcon className="h-4 w-4 mr-2 group-hover:rotate-12 transition-transform duration-300" />
