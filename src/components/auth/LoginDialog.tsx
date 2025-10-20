@@ -47,21 +47,24 @@ export const LoginDialog = ({ open, onOpenChange, onForgotPassword }: LoginDialo
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[480px] p-0 overflow-hidden border-0">
-        <div className="relative bg-gradient-to-br from-background via-card to-background p-12">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iaHNsKDIxNSAzNSUgMjUlKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-20"></div>
-          
-          <div className="relative space-y-6">
+      <DialogContent className="sm:max-w-[480px] p-0 overflow-hidden border-0 bg-gradient-to-br from-[#1a1a1a] via-[#0a0a0a] to-[#1a1a1a]">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-success/20 opacity-50"></div>
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-30"></div>
+        
+        <div className="relative p-12">
+          <div className="space-y-6">
             <DialogHeader className="space-y-3 pb-2">
-              <DialogTitle className="text-4xl font-bold tracking-tight">Sign In</DialogTitle>
-              <p className="text-muted-foreground text-sm">Welcome back! Continue your SQL journey</p>
+              <DialogTitle className="text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-warning to-primary bg-clip-text text-transparent animate-pulse">
+                Sign In
+              </DialogTitle>
+              <p className="text-foreground/70 text-sm font-medium">Welcome back! Continue your SQL journey</p>
             </DialogHeader>
 
             <div className="space-y-4">
               <Button 
                 type="button" 
                 variant="outline" 
-                className="w-full h-12 text-base font-medium border-2 hover:border-primary hover:bg-primary/5 transition-all"
+                className="w-full h-12 text-base font-semibold border-2 border-primary/30 hover:border-primary bg-gradient-to-r from-primary/10 to-warning/10 hover:from-primary/20 hover:to-warning/20 transition-all duration-300 shadow-lg hover:shadow-primary/50"
                 onClick={handleGoogleLogin}
               >
                 <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24">
@@ -75,10 +78,10 @@ export const LoginDialog = ({ open, onOpenChange, onForgotPassword }: LoginDialo
               
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <Separator className="bg-border/50" />
+                  <Separator className="bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-card px-3 py-1 text-muted-foreground font-medium rounded-full">
+                  <span className="bg-[#0a0a0a] px-4 py-1 text-foreground/60 font-semibold rounded-full border border-primary/30">
                     Or continue with email
                   </span>
                 </div>
@@ -86,7 +89,7 @@ export const LoginDialog = ({ open, onOpenChange, onForgotPassword }: LoginDialo
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-3">
-                  <div className="relative">
+                  <div className="relative group">
                     <Input
                       id="email"
                       type="email"
@@ -94,11 +97,11 @@ export const LoginDialog = ({ open, onOpenChange, onForgotPassword }: LoginDialo
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Email address"
                       disabled={isLoading}
-                      className="h-14 text-base bg-background/50 backdrop-blur-sm border-2 focus:border-primary pl-4 pr-4 rounded-lg transition-all"
+                      className="h-14 text-base bg-[#1a1a1a]/80 backdrop-blur-sm border-2 border-foreground/10 focus:border-primary focus:bg-[#1a1a1a] pl-4 pr-4 rounded-lg transition-all duration-300 group-hover:border-primary/30"
                     />
                   </div>
                   
-                  <div className="relative">
+                  <div className="relative group">
                     <Input
                       id="password"
                       type={showPassword ? "text" : "password"}
@@ -106,12 +109,12 @@ export const LoginDialog = ({ open, onOpenChange, onForgotPassword }: LoginDialo
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Password"
                       disabled={isLoading}
-                      className="h-14 text-base bg-background/50 backdrop-blur-sm border-2 focus:border-primary pl-4 pr-12 rounded-lg transition-all"
+                      className="h-14 text-base bg-[#1a1a1a]/80 backdrop-blur-sm border-2 border-foreground/10 focus:border-primary focus:bg-[#1a1a1a] pl-4 pr-12 rounded-lg transition-all duration-300 group-hover:border-primary/30"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/50 hover:text-primary transition-colors"
                     >
                       {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                     </button>
@@ -120,7 +123,7 @@ export const LoginDialog = ({ open, onOpenChange, onForgotPassword }: LoginDialo
                 
                 <Button 
                   type="submit" 
-                  className="w-full h-14 text-base font-semibold bg-primary hover:bg-primary-light transition-all shadow-lg hover:shadow-[0_0_20px_hsl(var(--primary)/0.4)]" 
+                  className="w-full h-14 text-base font-bold bg-gradient-to-r from-primary to-warning hover:from-primary/90 hover:to-warning/90 transition-all duration-300 shadow-[0_0_30px_rgba(255,167,38,0.3)] hover:shadow-[0_0_40px_rgba(255,167,38,0.5)] border-0" 
                   disabled={isLoading}
                 >
                   {isLoading ? 'Signing in...' : 'Sign In'}
@@ -133,12 +136,12 @@ export const LoginDialog = ({ open, onOpenChange, onForgotPassword }: LoginDialo
                       onOpenChange(false);
                       onForgotPassword?.();
                     }}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors hover:underline"
+                    className="text-sm text-primary hover:text-warning transition-colors hover:underline font-medium"
                   >
                     Forgot password?
                   </button>
                   
-                  <div className="text-xs text-muted-foreground bg-muted/30 px-4 py-2 rounded-md">
+                  <div className="text-xs text-foreground/60 bg-gradient-to-r from-primary/10 via-warning/10 to-primary/10 px-4 py-2 rounded-lg border border-primary/20">
                     Demo: john@example.com / password123
                   </div>
                 </div>
