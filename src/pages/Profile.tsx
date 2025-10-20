@@ -14,6 +14,7 @@ import { toast } from 'sonner';
 
 const Profile = () => {
   const { user, isAuthenticated } = useAppSelector((state) => state.auth);
+  const progress = useAppSelector((state) => state.progress);
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
@@ -89,26 +90,26 @@ const Profile = () => {
             <div className="grid gap-4 sm:grid-cols-4">
               <Card>
                 <CardContent className="pt-6 text-center">
-                  <div className="text-3xl font-bold">12</div>
+                  <div className="text-3xl font-bold">{progress.totalSolved}</div>
                   <p className="text-sm text-muted-foreground">problems solved</p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="pt-6 text-center">
-                  <div className="text-3xl font-bold">5</div>
+                  <div className="text-3xl font-bold">{progress.currentStreak}</div>
                   <p className="text-sm text-muted-foreground">day streak</p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="pt-6 text-center">
-                  <div className="text-3xl font-bold">240</div>
+                  <div className="text-3xl font-bold">{progress.totalPoints}</div>
                   <p className="text-sm text-muted-foreground">points</p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="pt-6 text-center">
-                  <div className="text-3xl font-bold">4.2</div>
-                  <p className="text-sm text-muted-foreground">rating</p>
+                  <div className="text-3xl font-bold">{progress.longestStreak}</div>
+                  <p className="text-sm text-muted-foreground">longest streak</p>
                 </CardContent>
               </Card>
             </div>
@@ -213,15 +214,24 @@ const Profile = () => {
                 <CardTitle>Recent Activity</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="flex items-center justify-between border-b pb-4 last:border-0 last:pb-0">
-                    <div>
-                      <p className="font-medium">Completed SQL Problem #{i}</p>
-                      <p className="text-sm text-muted-foreground">2 hours ago</p>
+                {Object.values(progress.solvedProblems)
+                  .filter(p => p.solved)
+                  .sort((a, b) => (b.lastAttempt || '').localeCompare(a.lastAttempt || ''))
+                  .slice(0, 5)
+                  .map((problem) => (
+                    <div key={problem.problemId} className="flex items-center justify-between border-b pb-4 last:border-0 last:pb-0">
+                      <div>
+                        <p className="font-medium">Completed {problem.problemId}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {problem.lastAttempt ? new Date(problem.lastAttempt).toLocaleDateString() : 'Recently'}
+                        </p>
+                      </div>
+                      <Badge>+{problem.pointsEarned || 10} pts</Badge>
                     </div>
-                    <Badge>+20 pts</Badge>
-                  </div>
-                ))}
+                  ))}
+                {Object.keys(progress.solvedProblems).length === 0 && (
+                  <p className="text-sm text-muted-foreground text-center py-4">No activity yet. Start solving problems!</p>
+                )}
               </CardContent>
             </Card>
           </div>
@@ -237,23 +247,23 @@ const Profile = () => {
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span>Easy</span>
-                    <span className="text-muted-foreground">8/10</span>
+                    <span className="text-muted-foreground">{progress.easyCount}/20</span>
                   </div>
-                  <Progress value={80} />
+                  <Progress value={(progress.easyCount / 20) * 100} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span>Medium</span>
-                    <span className="text-muted-foreground">3/8</span>
+                    <span className="text-muted-foreground">{progress.mediumCount}/15</span>
                   </div>
-                  <Progress value={37.5} />
+                  <Progress value={(progress.mediumCount / 15) * 100} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span>Hard</span>
-                    <span className="text-muted-foreground">1/5</span>
+                    <span className="text-muted-foreground">{progress.hardCount}/10</span>
                   </div>
-                  <Progress value={20} />
+                  <Progress value={(progress.hardCount / 10) * 100} />
                 </div>
               </CardContent>
             </Card>
@@ -265,17 +275,13 @@ const Profile = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-4">
-                  {[
-                    { name: 'First Query', locked: false },
-                    { name: 'Speed Demon', locked: false },
-                    { name: '10 Day Streak', locked: true },
-                    { name: 'SQL Master', locked: true },
-                  ].map((achievement, i) => (
+                  {progress.achievements.map((achievement) => (
                     <div
-                      key={i}
+                      key={achievement.id}
                       className={`flex flex-col items-center justify-center rounded-lg border p-4 ${
                         achievement.locked ? 'opacity-50' : ''
                       }`}
+                      title={achievement.description}
                     >
                       <div className="mb-2 text-2xl">🏆</div>
                       <p className="text-center text-xs font-medium">{achievement.name}</p>
@@ -295,14 +301,14 @@ const Profile = () => {
               </CardHeader>
               <CardContent>
                 <div className="text-center">
-                  <div className="mb-4 text-4xl font-bold">5</div>
+                  <div className="mb-4 text-4xl font-bold">{progress.currentStreak}</div>
                   <p className="mb-4 text-sm text-muted-foreground">day streak</p>
                   <div className="flex justify-center gap-2">
                     {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((day, i) => (
                       <div
                         key={i}
                         className={`flex h-8 w-8 items-center justify-center rounded-md text-xs ${
-                          i < 5
+                          i < progress.currentStreak
                             ? 'bg-primary text-primary-foreground'
                             : 'bg-muted text-muted-foreground'
                         }`}
@@ -311,7 +317,7 @@ const Profile = () => {
                       </div>
                     ))}
                   </div>
-                  <p className="mt-4 text-sm text-muted-foreground">today's problem</p>
+                  <p className="mt-4 text-sm text-muted-foreground">Keep it up!</p>
                 </div>
               </CardContent>
             </Card>
