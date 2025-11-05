@@ -9,7 +9,7 @@ import { RegisterDialog } from "@/components/auth/RegisterDialog"
 import { ForgotPasswordDialog } from "@/components/auth/ForgotPasswordDialog"
 import { useAppSelector, useAppDispatch } from "@/hooks"
 import { logout } from "@/store/slices/authSlice"
-import { User as UserIcon, Code, BookOpen, LogOut, Settings, MessageCircle, UserCircle } from "lucide-react"
+import { User as UserIcon, Code, BookOpen, LogOut, Settings, MessageCircle, UserCircle, Shield } from "lucide-react"
 
 export function Header() {
   const navigate = useNavigate()
@@ -66,6 +66,16 @@ export function Header() {
               <MessageCircle className="h-4 w-4 mr-2" />
               Contact
             </Button>
+            {isAuthenticated && user?.email?.includes('admin') && (
+              <Button 
+                variant="ghost" 
+                className={`${location.pathname === '/admin' ? "text-foreground font-semibold border-b-2 border-primary" : "text-muted-foreground hover:text-foreground"} transition-all duration-300 hover:scale-105`}
+                onClick={() => navigate('/admin')}
+              >
+                <Settings className="h-4 w-4 mr-2" />
+                Admin
+              </Button>
+            )}
           </nav>
 
           <div className="flex items-center space-x-4">
