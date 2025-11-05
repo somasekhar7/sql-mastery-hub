@@ -56,7 +56,7 @@ const initialState: ProgressState = {
     { id: 'first-query', name: 'First Query', description: 'Solved your first SQL problem', locked: false, unlockedAt: new Date().toISOString() },
     { id: 'speed-demon', name: 'Speed Demon', description: 'Solved a problem in under 5 minutes', locked: false, unlockedAt: new Date().toISOString() },
     { id: '10-day-streak', name: '10 Day Streak', description: 'Maintain a 10 day streak', locked: true },
-    { id: 'sql-master', name: 'SQL Master', description: 'Solve 50 problems', locked: true },
+    { id: 'sql-master', name: 'SQLExpert', description: 'Solve 50 problems', locked: true },
   ],
 };
 

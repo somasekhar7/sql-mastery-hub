@@ -67,7 +67,7 @@ const Index = () => {
       <section className="py-20 bg-card/50">
         <div className="container">
           <div className="text-center max-w-3xl mx-auto space-y-6">
-            <h2 className="text-4xl lg:text-5xl font-bold text-foreground">What is SQL Mastery Hub?</h2>
+            <h2 className="text-4xl lg:text-5xl font-bold text-foreground">What is SQLExpert?</h2>
             <p className="text-xl text-muted-foreground">
               A comprehensive learning platform designed to help you master SQL through hands-on practice, 
               real-world scenarios, and interactive challenges.

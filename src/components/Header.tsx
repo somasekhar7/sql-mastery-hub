@@ -37,7 +37,7 @@ export function Header() {
                 <Code className="h-4 w-4 text-primary-foreground group-hover:rotate-12 transition-transform duration-300" />
               </div>
               <h1 className="text-xl font-bold bg-gradient-to-r from-primary via-primary-light to-primary bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300">
-                SQL Master
+                SQLExpert
               </h1>
             </div>
           </div>

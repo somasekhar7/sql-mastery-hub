@@ -15,7 +15,7 @@ export function HeroSection() {
             </div>
 
             <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent animate-fade-in">
-              SQL Mastery Hub
+              SQLExpert
             </h1>
 
             <p className="text-lg text-foreground/70 max-w-lg leading-relaxed animate-fade-in font-medium">
