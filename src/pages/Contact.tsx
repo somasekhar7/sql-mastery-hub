@@ -46,7 +46,7 @@ export default function Contact() {
           </TabsList>
 
           <TabsContent value="submit" className="space-y-6">
-            <Card>
+            <Card className="shadow-lg border-border/50">
               <CardHeader>
                 <CardTitle>Submit a Support Ticket</CardTitle>
                 <CardDescription>
@@ -58,7 +58,7 @@ export default function Contact() {
               </CardContent>
             </Card>
 
-            <Card className="border-primary/20 bg-primary/5">
+            <Card className="border-primary/20 bg-primary/5 shadow-lg">
               <CardHeader>
                 <CardTitle className="text-lg">Quick Help Assistant</CardTitle>
                 <CardDescription>
