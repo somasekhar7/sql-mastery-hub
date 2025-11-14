@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -11,6 +12,7 @@ interface ForgotPasswordDialogProps {
 }
 
 export const ForgotPasswordDialog = ({ open, onOpenChange }: ForgotPasswordDialogProps) => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -24,12 +26,13 @@ export const ForgotPasswordDialog = ({ open, onOpenChange }: ForgotPasswordDialo
 
     setIsLoading(true);
     
-    // TODO: Implement password reset with Firebase/GCP
+    // TODO: Implement sending reset token to email with your backend
     setTimeout(() => {
-      toast.success('Password reset link sent to your email');
+      toast.success('Reset token sent to your email! Redirecting to reset page...');
       setIsLoading(false);
       onOpenChange(false);
       setEmail('');
+      setTimeout(() => navigate('/reset-password'), 1000);
     }, 1000);
   };
 
