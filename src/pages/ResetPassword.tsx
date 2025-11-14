@@ -45,27 +45,29 @@ export default function ResetPassword() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-2">
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background flex items-center justify-center p-4">
+      <Card className="w-full max-w-md shadow-lg border-border/50 dark:shadow-glow">
+        <CardHeader className="space-y-3 pb-6">
           <Button
             variant="ghost"
             size="sm"
             onClick={() => navigate('/')}
-            className="w-fit -ml-2 mb-2"
+            className="w-fit -ml-2 mb-2 hover:bg-accent"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Home
           </Button>
-          <CardTitle className="text-2xl font-bold">Reset Your Password</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+            Reset Your Password
+          </CardTitle>
+          <CardDescription className="text-base">
             Enter the token sent to your email and your new password
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-2">
-              <Label htmlFor="token">Reset Token</Label>
+              <Label htmlFor="token" className="text-sm font-semibold">Reset Token</Label>
               <Input
                 id="token"
                 type="text"
@@ -73,12 +75,12 @@ export default function ResetPassword() {
                 onChange={(e) => setToken(e.target.value)}
                 placeholder="Enter the token from your email"
                 disabled={isLoading}
-                className="h-11"
+                className="h-11 border-2 border-border focus-visible:border-primary bg-card dark:bg-input transition-colors"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">New Password</Label>
+              <Label htmlFor="password" className="text-sm font-semibold">New Password</Label>
               <div className="relative">
                 <Input
                   id="password"
@@ -87,13 +89,14 @@ export default function ResetPassword() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter new password (min. 8 characters)"
                   disabled={isLoading}
-                  className="h-11 pr-10"
+                  className="h-11 pr-10 border-2 border-border focus-visible:border-primary bg-card dark:bg-input transition-colors"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary transition-colors p-1 rounded-md hover:bg-accent"
                   disabled={isLoading}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
                     <EyeOff className="h-4 w-4" />
@@ -105,7 +108,7 @@ export default function ResetPassword() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="confirm-password">Confirm New Password</Label>
+              <Label htmlFor="confirm-password" className="text-sm font-semibold">Confirm New Password</Label>
               <div className="relative">
                 <Input
                   id="confirm-password"
@@ -114,13 +117,14 @@ export default function ResetPassword() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Confirm your new password"
                   disabled={isLoading}
-                  className="h-11 pr-10"
+                  className="h-11 pr-10 border-2 border-border focus-visible:border-primary bg-card dark:bg-input transition-colors"
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary transition-colors p-1 rounded-md hover:bg-accent"
                   disabled={isLoading}
+                  aria-label={showConfirmPassword ? "Hide password" : "Show password"}
                 >
                   {showConfirmPassword ? (
                     <EyeOff className="h-4 w-4" />
@@ -133,7 +137,7 @@ export default function ResetPassword() {
 
             <Button 
               type="submit" 
-              className="w-full h-11" 
+              className="w-full h-11 font-semibold bg-primary hover:bg-primary-dark shadow-md hover:shadow-lg transition-all" 
               disabled={isLoading}
             >
               {isLoading ? 'Resetting Password...' : 'Reset Password'}
