@@ -82,9 +82,13 @@ export function ContactForm({ onSuccess }: ContactFormProps) {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel className="text-sm font-semibold">Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Your name" {...field} />
+                  <Input 
+                    placeholder="Your name" 
+                    className="h-11 border-2 border-border focus-visible:border-primary bg-card dark:bg-input transition-colors"
+                    {...field} 
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -96,9 +100,14 @@ export function ContactForm({ onSuccess }: ContactFormProps) {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="text-sm font-semibold">Email</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="your.email@example.com" {...field} />
+                  <Input 
+                    type="email" 
+                    placeholder="your.email@example.com" 
+                    className="h-11 border-2 border-border focus-visible:border-primary bg-card dark:bg-input transition-colors"
+                    {...field} 
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -111,10 +120,10 @@ export function ContactForm({ onSuccess }: ContactFormProps) {
           name="category"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Category</FormLabel>
+              <FormLabel className="text-sm font-semibold">Category</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
-                  <SelectTrigger>
+                  <SelectTrigger className="h-11 border-2 border-border focus:border-primary bg-card dark:bg-input transition-colors">
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
                 </FormControl>
@@ -136,9 +145,13 @@ export function ContactForm({ onSuccess }: ContactFormProps) {
           name="subject"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Subject</FormLabel>
+              <FormLabel className="text-sm font-semibold">Subject</FormLabel>
               <FormControl>
-                <Input placeholder="Brief description of your issue" {...field} />
+                <Input 
+                  placeholder="Brief description of your issue" 
+                  className="h-11 border-2 border-border focus-visible:border-primary bg-card dark:bg-input transition-colors"
+                  {...field} 
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -150,11 +163,11 @@ export function ContactForm({ onSuccess }: ContactFormProps) {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description</FormLabel>
+              <FormLabel className="text-sm font-semibold">Description</FormLabel>
               <FormControl>
                 <Textarea 
                   placeholder="Please provide detailed information about your issue..."
-                  className="min-h-[150px] resize-none"
+                  className="min-h-[150px] resize-none border-2 border-border focus-visible:border-primary bg-card dark:bg-input transition-colors"
                   {...field}
                 />
               </FormControl>
@@ -168,7 +181,7 @@ export function ContactForm({ onSuccess }: ContactFormProps) {
 
         <Button 
           type="submit" 
-          className="w-full bg-gradient-primary hover:opacity-90"
+          className="w-full h-11 bg-gradient-primary hover:opacity-90 font-semibold shadow-md hover:shadow-lg transition-all"
           disabled={isSubmitting}
         >
           {isSubmitting ? (
